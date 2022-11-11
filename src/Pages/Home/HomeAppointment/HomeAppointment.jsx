@@ -7,7 +7,7 @@ const HomeAppointment = () => {
     <div className="appointment-section">
       <div className="home_appointment grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
         <div className="doctor-img">
-          <img src={doctor} alt="" />
+          <img className="md:hidden lg:block" src={doctor} alt="" />
         </div>
         <div className="text-white space-y-1 lg:space-y-3 px-5">
           <h3 className="text-[#12D0DC] text-2xl">Appointment</h3>

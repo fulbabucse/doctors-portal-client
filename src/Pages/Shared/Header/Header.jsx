@@ -13,7 +13,7 @@ const Header = () => {
             <div className="flex items-center justify-between">
               <div>
                 <Link to="/">
-                  <h1 className="flex items-center gap-1 text-lg lg:text-2xl font-bold text-gray-800">
+                  <h1 className="flex items-center gap-1 text-xl lg:text-3xl font-bold text-gray-800">
                     Doctors <img className="w-4 h-4" src={logo} alt="" /> Portal
                   </h1>
                 </Link>

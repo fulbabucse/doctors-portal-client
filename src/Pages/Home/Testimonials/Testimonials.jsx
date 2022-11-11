@@ -6,7 +6,7 @@ import people3 from "../../../assets/images/people3.png";
 
 const Testimonials = () => {
   return (
-    <div>
+    <div className="space-y-5 lg:space-y-9">
       <div className="flex justify-between items-center">
         <div>
           <h4 className="text-[#12D0DC] text-2xl font-semibold">
@@ -17,7 +17,7 @@ const Testimonials = () => {
           </h1>
         </div>
         <div>
-          <img src={comma} alt="" />
+          <img className="w-10 h-10 lg:w-20 lg:h-20" src={comma} alt="" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
