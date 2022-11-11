@@ -6,7 +6,7 @@ import treatment from "../../assets/images/treatment.png";
 
 const Services = () => {
   return (
-    <div className="mt-3 lg:mt-10">
+    <div className="my-3 lg:my-10">
       <div className="text-center space-y-2">
         <h3 className="text-xl font-bold text-[#11D0DB] uppercase">
           Our Services

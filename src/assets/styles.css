@@ -7,8 +7,39 @@
   padding: 0;
 }
 
+.appointment-section {
+  position: relative;
+  top: 115px;
+}
+
+.home_appointment {
+  position: absolute;
+  max-height: 533px;
+  background-image: url("./images/appointment.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 50px;
+  padding: 50px 0;
+}
+
+.doctor-img img {
+  width: 606px;
+  height: 570px;
+  position: absolute;
+  bottom: 0;
+}
+
 @media only screen and (max-width: 640px) {
   .treatment-img {
     width: 100%;
+  }
+
+  .doctor-img {
+    display: none;
+  }
+
+  .appointment-section {
+    top: 0;
   }
 }
