@@ -8,6 +8,7 @@
 }
 
 .appointment-section {
+  height: 636px;
   position: relative;
   top: 115px;
 }
@@ -40,6 +41,7 @@
   }
 
   .appointment-section {
+    height: 100%;
     top: 0;
   }
 }

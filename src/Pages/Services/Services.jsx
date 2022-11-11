@@ -8,9 +8,7 @@ const Services = () => {
   return (
     <div className="my-3 lg:my-10">
       <div className="text-center space-y-2">
-        <h3 className="text-xl font-bold text-[#11D0DB] uppercase">
-          Our Services
-        </h3>
+        <h3 className="text-[#12D0DC] text-2xl font-semibold">Our Services</h3>
         <h1 className="text-3xl font-semibold text-gray-800">
           Services We Provide
         </h1>
