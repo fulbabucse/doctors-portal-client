@@ -6,3 +6,9 @@
   background-repeat: no-repeat;
   padding: 0;
 }
+
+@media only screen and (max-width: 640px) {
+  .treatment-img {
+    width: 100%;
+  }
+}

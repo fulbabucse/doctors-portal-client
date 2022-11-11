@@ -2,6 +2,7 @@ import React from "react";
 import fluoride from "../../assets/images/fluoride.png";
 import cavity from "../../assets/images/cavity.png";
 import whitening from "../../assets/images/whitening.png";
+import treatment from "../../assets/images/treatment.png";
 
 const Services = () => {
   return (
@@ -14,7 +15,7 @@ const Services = () => {
           Services We Provide
         </h1>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-5 lg:my-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-5 lg:my-5">
         <div className="flex flex-col items-center rounded-lg p-3 shadow-xl">
           <img src={fluoride} alt="" />
           <h3 className="text-xl lg:text-2xl font-base text-gray-800 capitalize">
@@ -52,6 +53,38 @@ const Services = () => {
             your yellow teeth as well as your needs, the doctor will advise and
             prescribe the appropriate method.
           </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center lg:mt-10">
+        <div className="flex justify-center">
+          <img
+            style={{ maxWidth: "458px", height: "576px" }}
+            src={treatment}
+            alt="Treatment"
+            className="treatment-img rounded-md"
+          />
+        </div>
+        <div className="space-y-1 lg:space-y-3">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-800">
+            Exceptional Dental Care, on Your Terms
+          </h1>
+          <p className="secondary-font font-medium text-gray-600/90">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsumis that it has a more-or-less normal
+            distribution of letters,as opposed to using 'Content here, content
+            here', making it look like readable English. Many desktop publishing
+            packages and web page
+          </p>
+          <button
+            type="button"
+            data-mdb-ripple="true"
+            data-mdb-ripple-color="light"
+            className="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+          >
+            Get Started
+          </button>
         </div>
       </div>
     </div>

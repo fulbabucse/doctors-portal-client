@@ -34,7 +34,7 @@ const Header = () => {
                 navbar
                   ? "translate-x-0 opacity-100"
                   : "opacity-0 -translate-x-full"
-              } absolute inset-x-0 z-20 flex-1 w-full px-6 pb-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center lg:justify-end`}
+              } absolute inset-x-0 z-20 flex-1 w-full px-4 shadow-lg lg:shadow-none pb-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center lg:justify-end`}
             >
               <div className="secondary-font flex flex-col transition-all duration-300 ease-in-out  text-gray-600 capitalize dark:text-gray-300 lg:flex lg:px-0 lg:flex-row lg:items-center">
                 <Link

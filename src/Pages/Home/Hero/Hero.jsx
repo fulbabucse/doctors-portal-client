@@ -6,11 +6,11 @@ import { HiLocationMarker } from "react-icons/hi";
 
 const Hero = () => {
   return (
-    <div>
+    <div className="mt-3">
       <div className="hero-content grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
         <div className="space-y-1 lg:space-y-3">
-          <h1 className="text-xl lg:text-5xl font-bold text-gray-800">
-            Your New <br /> Smile Starts Here
+          <h1 className="text-2xl lg:w-3/4 md:text-3xl lg:text-5xl font-bold text-gray-800">
+            Your New Smile Starts Here
           </h1>
           <p className="secondary-font font-medium text-gray-600/90">
             Historically, drugs were discovered through identifying the active
@@ -21,7 +21,7 @@ const Hero = () => {
             type="button"
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
-            class="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+            className="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
           >
             Get Started
           </button>
@@ -30,7 +30,7 @@ const Hero = () => {
           <img src={chair} alt="" />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-5 lg:mt-0 lg:mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5 lg:mt-0 lg:mb-5">
         <div className="bg-[#11D0DB] py-6 px-5 flex items-center gap-3 text-white rounded-md">
           <FaClock className="text-6xl font-bold "></FaClock>
           <div>
