@@ -30,9 +30,9 @@ const Hero = () => {
           <img src={chair} alt="" />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 lg:mt-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-5 lg:mt-0 lg:mb-5">
         <div className="bg-[#11D0DB] py-6 px-5 flex items-center gap-3 text-white rounded-md">
-          <FaClock className="text-7xl font-bold "></FaClock>
+          <FaClock className="text-6xl font-bold "></FaClock>
           <div>
             <h3 className="text-2xl font-semibold">Opening Hours</h3>
             <p>8.00AM - 10.00PM</p>
@@ -48,7 +48,7 @@ const Hero = () => {
         </div>
 
         <div className="bg-[#11D0DB] py-6 px-5 flex items-center gap-3 text-white rounded-md">
-          <FaPhoneAlt className="text-7xl font-bold "></FaPhoneAlt>
+          <FaPhoneAlt className="text-5xl font-bold "></FaPhoneAlt>
           <div>
             <h3 className="text-2xl font-semibold">Contact Us Now</h3>
             <p>880 1736 534 295</p>
