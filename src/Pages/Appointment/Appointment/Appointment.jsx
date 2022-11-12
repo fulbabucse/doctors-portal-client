@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import AvailableAppointment from "../AvailableAppointment/AvailableAppointment";
-import Hero from "../Hero/Hero";
+import HeroAppointment from "../HeroAppointment/HeroAppointment";
 
 const Appointment = () => {
+  const [selected, setSelected] = useState(new Date());
+
   return (
     <div>
-      <Hero></Hero>
-      <AvailableAppointment></AvailableAppointment>
+      <HeroAppointment
+        selected={selected}
+        setSelected={setSelected}
+      ></HeroAppointment>
+      <AvailableAppointment selected={selected}></AvailableAppointment>
     </div>
   );
 };

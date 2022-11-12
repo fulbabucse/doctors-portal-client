@@ -12,12 +12,12 @@ const Contact = () => {
         </h1>
       </div>
 
-      <div class="block px-4 mt-4 rounded-lg shadow-lg bg-transparent w-full lg:w-2/5">
+      <div className="block px-4 mt-4 rounded-lg shadow-lg bg-transparent w-full lg:w-2/5">
         <form className="space-y-3">
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="text"
-              class="form-control block
+              className="form-control block
         w-full
         px-3
         py-1.5
@@ -35,10 +35,10 @@ const Contact = () => {
               placeholder="Name"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="email"
-              class="form-control block
+              className="form-control block
         w-full
         px-3
         py-1.5
@@ -56,10 +56,10 @@ const Contact = () => {
               placeholder="Email"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="email"
-              class="form-control block
+              className="form-control block
         w-full
         px-3
         py-1.5
@@ -77,9 +77,9 @@ const Contact = () => {
               placeholder="Subject"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <textarea
-              class="
+              className="
         form-control
         block
         w-full
