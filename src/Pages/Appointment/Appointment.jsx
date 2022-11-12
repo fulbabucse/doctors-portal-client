@@ -1,9 +1,10 @@
 import React from "react";
+import Hero from "./Hero/Hero";
 
 const Appointment = () => {
   return (
     <div>
-      <h1>Appointment Page</h1>
+      <Hero></Hero>
     </div>
   );
 };
