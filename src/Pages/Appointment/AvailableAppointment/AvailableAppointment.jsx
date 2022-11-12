@@ -7,7 +7,7 @@ import AppointmentModal from "../AppointmentModal/AppointmentModal";
 
 const AvailableAppointment = ({ selected }) => {
   const [appointments, setAppointments] = useState([]);
-  const [treatment, setTreatment] = useState({});
+  const [treatment, setTreatment] = useState(null);
 
   useEffect(() => {
     fetch("appointments.json")
@@ -21,7 +21,7 @@ const AvailableAppointment = ({ selected }) => {
         Available Appointment on {format(selected, "PP")}
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-        {appointments.map((appointment) => (
+        {appointments?.map((appointment) => (
           <AvailableCard
             key={appointment._id}
             appointment={appointment}
@@ -29,10 +29,13 @@ const AvailableAppointment = ({ selected }) => {
           ></AvailableCard>
         ))}
       </div>
-      <AppointmentModal
-        selected={selected}
-        treatment={treatment}
-      ></AppointmentModal>
+      {treatment && (
+        <AppointmentModal
+          selected={selected}
+          treatment={treatment}
+          setTreatment={setTreatment}
+        ></AppointmentModal>
+      )}
     </div>
   );
 };

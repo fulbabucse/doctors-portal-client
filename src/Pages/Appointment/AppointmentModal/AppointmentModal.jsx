@@ -1,9 +1,28 @@
 import React from "react";
 import { format } from "date-fns";
 
-const AppointmentModal = ({ treatment, selected }) => {
+const AppointmentModal = ({ treatment, selected, setTreatment }) => {
   const { name, slots } = treatment;
   const bookingDate = format(selected, "PP");
+
+  const handleBookingAppointment = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const appointmentTime = form.slots.value;
+    const patientName = form.name.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const user = {
+      patientName,
+      bookingDate,
+      appointmentTime,
+      email,
+      phone,
+      treatment: name,
+    };
+    console.log(user);
+    setTreatment(null);
+  };
   return (
     <div>
       <div
@@ -30,7 +49,7 @@ const AppointmentModal = ({ treatment, selected }) => {
               ></button>
             </div>
             <div className="modal-body relative p-4">
-              <form className="space-y-3">
+              <form onSubmit={handleBookingAppointment} className="space-y-3">
                 <div className="form-group">
                   <input
                     type="text"
@@ -57,6 +76,7 @@ const AppointmentModal = ({ treatment, selected }) => {
                   />
                 </div>
                 <select
+                  name="slots"
                   className="form-select appearance-none
       block
       w-full
@@ -83,6 +103,7 @@ const AppointmentModal = ({ treatment, selected }) => {
                 <div className="form-group">
                   <input
                     type="text"
+                    name="name"
                     className="form-control
           block
           w-full
@@ -106,6 +127,7 @@ const AppointmentModal = ({ treatment, selected }) => {
                 <div className="form-group">
                   <input
                     type="text"
+                    name="phone"
                     className="form-control
           block
           w-full
@@ -129,6 +151,7 @@ const AppointmentModal = ({ treatment, selected }) => {
                 <div className="form-group">
                   <input
                     type="email"
+                    name="email"
                     className="form-control
           block
           w-full
