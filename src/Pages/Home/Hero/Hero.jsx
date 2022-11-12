@@ -3,6 +3,7 @@ import "../../../assets/styles.css";
 import chair from "../../../assets/images/chair.png";
 import { FaClock, FaPhoneAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
+import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
 const Hero = () => {
   return (
@@ -17,21 +18,14 @@ const Hero = () => {
             ingredient from traditional remedies or by serendipitous discovery.
             Later chemical libraries of synthetic small molecules.
           </p>
-          <button
-            type="button"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="light"
-            className="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-          >
-            Get Started
-          </button>
+          <PrimaryButton>Get Started</PrimaryButton>
         </div>
         <div>
           <img src={chair} alt="" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5 lg:mt-0 lg:mb-5">
-        <div className="bg-[#11D0DB] py-6 px-5 flex items-center gap-3 text-white rounded-md">
+        <div className="bg-primaryColor py-6 px-5 flex items-center gap-3 text-white rounded-md">
           <FaClock className="text-6xl font-bold "></FaClock>
           <div>
             <h3 className="text-2xl font-semibold">Opening Hours</h3>
@@ -39,7 +33,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="bg-[#3A4255] py-6 px-5 flex items-center gap-3 text-white rounded-md">
+        <div className="bg-ternaryColor py-6 px-5 flex items-center gap-3 text-white rounded-md">
           <HiLocationMarker className="text-7xl font-bold "></HiLocationMarker>
           <div>
             <h3 className="text-2xl font-semibold">Visit Our Location</h3>
@@ -47,7 +41,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="bg-[#11D0DB] py-6 px-5 flex items-center gap-3 text-white rounded-md">
+        <div className="bg-primaryColor py-6 px-5 flex items-center gap-3 text-white rounded-md">
           <FaPhoneAlt className="text-5xl font-bold "></FaPhoneAlt>
           <div>
             <h3 className="text-2xl font-semibold">Contact Us Now</h3>

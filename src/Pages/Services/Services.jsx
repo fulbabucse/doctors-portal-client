@@ -3,12 +3,15 @@ import fluoride from "../../assets/images/fluoride.png";
 import cavity from "../../assets/images/cavity.png";
 import whitening from "../../assets/images/whitening.png";
 import treatment from "../../assets/images/treatment.png";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 const Services = () => {
   return (
     <div className="my-3 lg:my-10">
       <div className="text-center space-y-2">
-        <h3 className="text-[#12D0DC] text-2xl font-semibold">Our Services</h3>
+        <h3 className="text-primaryColor text-2xl font-semibold">
+          Our Services
+        </h3>
         <h1 className="text-3xl font-semibold text-gray-800">
           Services We Provide
         </h1>
@@ -75,14 +78,7 @@ const Services = () => {
             here', making it look like readable English. Many desktop publishing
             packages and web page
           </p>
-          <button
-            type="button"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="light"
-            className="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-          >
-            Get Started
-          </button>
+          <PrimaryButton>Get Started</PrimaryButton>
         </div>
       </div>
     </div>

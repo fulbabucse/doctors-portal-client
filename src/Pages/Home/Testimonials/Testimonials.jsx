@@ -9,7 +9,7 @@ const Testimonials = () => {
     <div className="space-y-5 lg:space-y-9">
       <div className="flex justify-between items-center">
         <div>
-          <h4 className="text-[#12D0DC] text-2xl font-semibold">
+          <h4 className="text-primaryColor text-2xl font-semibold">
             Testimonials
           </h4>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">
@@ -28,7 +28,7 @@ const Testimonials = () => {
             using Content here, content
           </p>
           <div className="flex items-center gap-2">
-            <div className="ring-2 ring-[#12D0DC] rounded-full">
+            <div className="ring-2 ring-primaryColor rounded-full">
               <img
                 className="w-16 h-16 bg-white rounded-full p-1"
                 src={people1}
@@ -51,7 +51,7 @@ const Testimonials = () => {
             using Content here, content
           </p>
           <div className="flex items-center gap-2">
-            <div className="ring-2 ring-[#12D0DC] rounded-full">
+            <div className="ring-2 ring-primaryColor rounded-full">
               <img
                 className="w-16 h-16 bg-white rounded-full p-1"
                 src={people2}
@@ -74,7 +74,7 @@ const Testimonials = () => {
             using Content here, content
           </p>
           <div className="flex items-center gap-2">
-            <div className="ring-2 ring-[#12D0DC] rounded-full">
+            <div className="ring-2 ring-primaryColor rounded-full">
               <img
                 className="w-16 h-16 bg-white rounded-full p-1"
                 src={people3}

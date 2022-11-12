@@ -26,22 +26,34 @@ const Footer = () => {
             </h3>
             <ul className="space-y-1">
               <li>
-                <Link to="/" className="hover:underline">
+                <Link
+                  to="/"
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                >
                   Emergency Checkup
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Monthly Checkup
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Weekly Checkup
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Deep Checkup
                 </Link>
               </li>
@@ -53,18 +65,27 @@ const Footer = () => {
             </h3>
             <ul className="space-y-1">
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Fluoride Treatment
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Cavity Filling
                 </Link>
               </li>
 
               <li>
-                <Link className="hover:underline" to="/">
+                <Link
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100 hover:ml-1"
+                  to="/"
+                >
                   Teeth Whitening
                 </Link>
               </li>
@@ -76,7 +97,10 @@ const Footer = () => {
             </h3>
             <ul className="space-y-1">
               <li>
-                <Link to="/" className="hover:underline">
+                <Link
+                  to="/"
+                  className="hover:underline ease-linear hover:text-primaryColor hover:font-semibold transition-all duration-100"
+                >
                   10/12 Gopalpur Lane, Rangpur, Bangladesh
                 </Link>
               </li>

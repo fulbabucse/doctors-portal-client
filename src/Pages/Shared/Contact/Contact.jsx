@@ -1,11 +1,12 @@
 import React from "react";
 import "../../../assets/styles.css";
+import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
 const Contact = () => {
   return (
     <div className="contact-container flex flex-col items-center mt-3 lg:mt-10 py-4 lg:py-10">
       <div className="flex flex-col items-center">
-        <h4 className="text-[#12D0DC] text-2xl font-semibold">Contact Us</h4>
+        <h4 className="text-primaryColor text-2xl font-semibold">Contact Us</h4>
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
           Stay connected with us
         </h1>
@@ -29,7 +30,7 @@ const Contact = () => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-[#12D0DC] focus:outline-none"
+        focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
               id="exampleInput7"
               placeholder="Name"
             />
@@ -50,7 +51,7 @@ const Contact = () => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-[#12D0DC] focus:outline-none"
+        focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
               id="exampleInput8"
               placeholder="Email"
             />
@@ -71,7 +72,7 @@ const Contact = () => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-[#12D0DC] focus:outline-none"
+        focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
               id="exampleInput8"
               placeholder="Subject"
             />
@@ -93,7 +94,7 @@ const Contact = () => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-[#12D0DC] focus:outline-none
+        focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none
       "
               id="exampleFormControlTextarea13"
               rows="3"
@@ -101,14 +102,7 @@ const Contact = () => {
             ></textarea>
           </div>
           <div className="text-center">
-            <button
-              type="button"
-              data-mdb-ripple="true"
-              data-mdb-ripple-color="light"
-              className="inline-block px-3 py-3 bg-[#12D0DC] text-white font-medium text-base leading-tight rounded-md shadow-md hover:bg-[#0ebeca] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              Send
-            </button>
+            <PrimaryButton>Send</PrimaryButton>
           </div>
         </form>
       </div>
