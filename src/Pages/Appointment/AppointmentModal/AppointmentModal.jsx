@@ -21,7 +21,6 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
       treatment: name,
     };
     console.log(user);
-    setTreatment(null);
   };
   return (
     <div>
