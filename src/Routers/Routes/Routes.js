@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../../Layouts/Root";
 import About from "../../Pages/About/About";
-import Appointment from "../../Pages/Appointment/Appointment";
+import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import Contact from "../../Pages/Shared/Contact/Contact";
 import Home from "../../Pages/Home/Home/Home";
 import Reviews from "../../Pages/Reviews/Reviews";
