@@ -2,8 +2,32 @@ import React from "react";
 import signIn from "../../../assets/icons/sign-in.svg";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { useState } from "react";
 
 const SignIn = () => {
+  const [errors, setErrors] = useState("");
+  const { signUser } = useContext(AuthContext);
+  const handleUserSignIn = (e) => {
+    e.preventDefault();
+    setErrors("");
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((err) => {
+        if (err.message === "Firebase: Error (auth/user-not-found).") {
+          setErrors("User not found");
+        } else if (err.message === "Firebase: Error (auth/wrong-password).") {
+          setErrors("You are entering the wrong password");
+        }
+      });
+  };
   const handleGoogleSignIn = () => {};
   const handlePasswordReset = () => {};
   return (
@@ -19,7 +43,7 @@ const SignIn = () => {
             </h1>
             <p className="font-medium">Sign in to access your account</p>
           </div>
-          <form className="space-y-6">
+          <form onSubmit={handleUserSignIn} className="space-y-6">
             <div className="relative z-0 w-full group">
               <input
                 type="email"
@@ -63,7 +87,7 @@ const SignIn = () => {
             </button>
           </form>
           <div className="flex justify-between items-center mt-3">
-            <p className="text-red-600">Wrong Password</p>
+            <p className="text-red-600">{errors}</p>
             <button
               onClick={handlePasswordReset}
               className="text-purple-600 hover:text-purple-700 focus:text-purple-700 active:text-purple-800 duration-200 transition ease-in-out"

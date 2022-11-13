@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useContext } from "react";
+import toast from "react-hot-toast";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/doctor-plus-logo.png";
@@ -8,8 +9,14 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
-  const { user } = useContext(AuthContext);
-  const handleUserSignOut = () => {};
+  const { user, userSignOut } = useContext(AuthContext);
+  const handleUserSignOut = () => {
+    userSignOut()
+      .then((res) => {
+        toast.success("Sign Out Success");
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <div>
       <nav className="bg-white shadow dark:bg-gray-800">
@@ -117,42 +124,15 @@ const Header = () => {
                                   type="button"
                                   data-mdb-ripple="true"
                                   data-mdb-ripple-color="light"
-                                  className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0  w-full active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                  className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0  w-full active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                                 >
                                   Sign Up
                                 </button>
                               </Link>
                             </li>
                           )}
-                          {user?.email && (
-                            <>
-                              <li>
-                                <Link to="/my-reviews">
-                                  <button
-                                    type="button"
-                                    data-mdb-ripple="true"
-                                    data-mdb-ripple-color="light"
-                                    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg w-full focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                  >
-                                    My Review
-                                  </button>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/add-service" className="w-full">
-                                  <button
-                                    data-mdb-ripple="true"
-                                    data-mdb-ripple-color="light"
-                                    className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 w-full active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
-                                  >
-                                    Add Service
-                                  </button>
-                                </Link>
-                              </li>
-                            </>
-                          )}
                           <li>
-                            {user?.uid ? (
+                            {user?.email ? (
                               <button
                                 onClick={handleUserSignOut}
                                 className="inline-block w-full px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -164,7 +144,7 @@ const Header = () => {
                                 <button
                                   data-mdb-ripple="true"
                                   data-mdb-ripple-color="light"
-                                  className="inline-block px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 w-full active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                                  className="inline-block px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 w-full active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
                                 >
                                   Sign In
                                 </button>

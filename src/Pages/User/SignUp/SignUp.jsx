@@ -1,8 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import signUp from "../../../assets/icons/sign-up.svg";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
+  const [errors, setErrors] = useState("");
+  const { createUser } = useContext(AuthContext);
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    setErrors("");
+    const form = e.target;
+    const firstName = form.firstName.value;
+    const lastName = form.lastName.value;
+    const email = form.email.value;
+    const createPassword = form.createPassword.value;
+    const repeatPassword = form.repeatPassword.value;
+    const photoLink = form.photoLink.value;
+
+    if (createPassword !== repeatPassword) {
+      setErrors("Password didn't match");
+      return;
+    }
+
+    const user = {
+      firstName,
+      lastName,
+      email,
+      createPassword,
+      repeatPassword,
+      photoLink,
+    };
+
+    createUser(email, createPassword)
+      .then((res) => {
+        console.log(res.user);
+        toast.success("Account create success");
+        form.reset();
+      })
+      .catch((err) => {
+        if (err.message === "Firebase: Error (auth/email-already-in-use).") {
+          setErrors("This Email already used");
+        } else if (
+          err.message ===
+          "Firebase: Password should be at least 6 characters (auth/weak-password)."
+        ) {
+          setErrors("Password should be at least 6 characters");
+        }
+      });
+  };
   return (
     <div className="my-6 lg:my-16">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
@@ -16,8 +63,8 @@ const SignUp = () => {
             </h1>
             <p className="font-medium">Create a new Account</p>
           </div>
-          <form className="space-y-6">
-            <div className="grid md:grid-cols-2 md:gap-4 space-y-6 lg:space-y-0">
+          <form onSubmit={handleSignUp} className="space-y-6">
+            <div className="grid md:grid-cols-2 md:gap-4 space-y-4 lg:space-y-0">
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
@@ -125,6 +172,7 @@ const SignUp = () => {
               Sign Up
             </button>
           </form>
+          <p className="text-red-600 mt-2">{errors}</p>
           <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
             <p className="text-center font-semibold mx-4 mb-0 text-gray-700">
               OR
