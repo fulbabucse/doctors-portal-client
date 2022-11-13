@@ -60,15 +60,6 @@ const SignIn = () => {
                 type="password"
                 {...register("password", {
                   required: "Password field are required",
-                  minLength: {
-                    value: 6,
-                    message: "Password should be at least 6 characters",
-                  },
-                  pattern: {
-                    value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
-                    message:
-                      "At least 1 special character, 1 uppercase letter, 1 Number character",
-                  },
                 })}
                 id="password"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"

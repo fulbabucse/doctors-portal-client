@@ -1,59 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useContext } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import signUp from "../../../assets/icons/sign-up.svg";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
-  const [errors, setErrors] = useState("");
   const { createUser, updateUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    setErrors("");
-    const form = e.target;
-    const firstName = form.firstName.value;
-    const lastName = form.lastName.value;
-    const email = form.email.value;
-    const createPassword = form.createPassword.value;
-    const repeatPassword = form.repeatPassword.value;
-    const photoLink = form.photoLink.value;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    if (createPassword !== repeatPassword) {
-      setErrors("Password didn't match");
-      return;
-    }
-
-    const UserName = `${firstName} ${lastName}`;
-
-    createUser(email, createPassword)
-      .then((res) => {
-        updatesProfile(UserName, photoLink);
-        toast.success("Account create success");
-        form.reset();
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.message === "Firebase: Error (auth/email-already-in-use).") {
-          setErrors("This Email already used");
-        } else if (
-          err.message ===
-          "Firebase: Password should be at least 6 characters (auth/weak-password)."
-        ) {
-          setErrors("Password should be at least 6 characters");
-        }
-      });
-  };
-
-  const updatesProfile = (name, photoLink) => {
-    const updateInfo = {
-      displayName: name,
-      photoURL: photoLink,
-    };
-    updateUserProfile(updateInfo)
-      .then((res) => {})
-      .catch((err) => console.error(err));
+  const handleSignUp = (data) => {
+    console.log(data);
   };
 
   return (
@@ -69,16 +30,17 @@ const SignUp = () => {
             </h1>
             <p className="font-medium">Create a new Account</p>
           </div>
-          <form onSubmit={handleSignUp} className="space-y-6">
+          <form onSubmit={handleSubmit(handleSignUp)} className="space-y-6">
             <div className="grid md:grid-cols-2 md:gap-4 space-y-4 lg:space-y-0">
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
-                  name="firstName"
+                  {...register("firstName", {
+                    required: "First name is required",
+                  })}
                   id="firstName"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   htmlFor="firstName"
@@ -86,6 +48,11 @@ const SignUp = () => {
                 >
                   First name
                 </label>
+                {errors.firstName && (
+                  <p className="text-red-400 text-sm font-medium">
+                    {errors.firstName?.message}
+                  </p>
+                )}
               </div>
               <div className="relative z-0 w-full group">
                 <input
@@ -106,11 +73,12 @@ const SignUp = () => {
             <div className="relative z-0 w-full group">
               <input
                 type="email"
-                name="email"
+                {...register("email", {
+                  required: "Email address is required",
+                })}
                 id="email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                 placeholder=" "
-                required
               />
               <label
                 htmlFor="email"
@@ -118,48 +86,52 @@ const SignUp = () => {
               >
                 Email address
               </label>
+              {errors.email && (
+                <p className="text-red-400 text-sm font-medium">
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div className="relative z-0 w-full group">
               <input
                 type="password"
-                name="createPassword"
-                id="createPassword"
+                {...register("password", {
+                  required: "Password field are required",
+                  minLength: {
+                    value: 6,
+                    message: "Password length should be 6 character",
+                  },
+                  pattern: {
+                    value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                    message: `At least 1 special character, 1 uppercase letter, and Number character make the password stronger`,
+                  },
+                })}
+                id="password"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                 placeholder=" "
-                required=" "
               />
               <label
-                htmlFor="createPassword"
+                htmlFor="password"
                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primaryColor peer-focus:dark:text-primaryColor peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
-                Create password
+                Password
               </label>
-            </div>
-            <div className="relative z-0 w-full group">
-              <input
-                type="password"
-                name="repeatPassword"
-                id="floating_repeat_password"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
-                placeholder=" "
-                required
-              />
-              <label
-                htmlFor="floating_repeat_password"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primaryColor peer-focus:dark:text-primaryColor peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Confirm password
-              </label>
+              {errors.password && (
+                <p className="text-red-400 text-sm font-medium">
+                  {errors.password?.message}
+                </p>
+              )}
             </div>
 
             <div className="relative z-0 w-full group">
               <input
                 type="text"
-                name="photoLink"
+                {...register("photoLink", {
+                  required: "Photo link are required",
+                })}
                 id="photoLink"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                 placeholder=" "
-                required=" "
               />
               <label
                 htmlFor="photoLink"
@@ -167,6 +139,11 @@ const SignUp = () => {
               >
                 Photo URL
               </label>
+              {errors.photoLink && (
+                <p className="text-red-400 text-sm font-medium">
+                  {errors.photoLink?.message}
+                </p>
+              )}
             </div>
 
             <button
@@ -178,7 +155,7 @@ const SignUp = () => {
               Sign Up
             </button>
           </form>
-          <p className="text-red-600 mt-2">{errors}</p>
+
           <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
             <p className="text-center font-semibold mx-4 mb-0 text-gray-700">
               OR
