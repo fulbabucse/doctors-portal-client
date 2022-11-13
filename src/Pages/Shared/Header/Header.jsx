@@ -10,6 +10,7 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
   const { user, userSignOut } = useContext(AuthContext);
+
   const handleUserSignOut = () => {
     userSignOut()
       .then((res) => {
@@ -94,7 +95,9 @@ const Header = () => {
                           aria-expanded="false"
                         >
                           <img
-                            className="w-14 h-10 rounded-full text-xs"
+                            className={`${
+                              user?.email ? "w-10 h-10" : "w-14 h-10"
+                            } rounded-full text-xs`}
                             src={user?.photoURL || doctorThumb}
                             alt="User Picture"
                           />
@@ -103,7 +106,7 @@ const Header = () => {
                           className=" dropdown-menu px-2 min-w-max absolute hidden bg-white text-base z-50 space-y-2 py-2 list-none text-left rounded-md shadow-2xl mt-1 m-0 bg-clip-padding border-none"
                           aria-labelledby="dropdownMenuButton1"
                         >
-                          {user?.uid && (
+                          {user?.email && (
                             <li>
                               <Link
                                 to="/profile"
@@ -124,7 +127,7 @@ const Header = () => {
                                   type="button"
                                   data-mdb-ripple="true"
                                   data-mdb-ripple-color="light"
-                                  className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0  w-full active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                  className="inline-block px-4 py-2 bg-purple-600 text-white font-medium text-md leading-tight rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0  w-full active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                                 >
                                   Sign Up
                                 </button>
@@ -135,7 +138,7 @@ const Header = () => {
                             {user?.email ? (
                               <button
                                 onClick={handleUserSignOut}
-                                className="inline-block w-full px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                                className="inline-block w-full px-4 py-2 bg-gradient-to-r from-primaryColor to-secondaryColor text-white font-medium text-md leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out"
                               >
                                 Sign Out
                               </button>
@@ -144,7 +147,7 @@ const Header = () => {
                                 <button
                                   data-mdb-ripple="true"
                                   data-mdb-ripple-color="light"
-                                  className="inline-block px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 w-full active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                                  className="inline-block w-full px-4 py-2 bg-gradient-to-r from-primaryColor to-secondaryColor text-white font-medium text-md leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out"
                                 >
                                   Sign In
                                 </button>

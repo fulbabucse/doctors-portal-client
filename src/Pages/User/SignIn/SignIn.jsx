@@ -1,14 +1,16 @@
 import React from "react";
 import signIn from "../../../assets/icons/sign-in.svg";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [errors, setErrors] = useState("");
   const { signUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleUserSignIn = (e) => {
     e.preventDefault();
     setErrors("");
@@ -18,7 +20,9 @@ const SignIn = () => {
 
     signUser(email, password)
       .then((res) => {
-        console.log(res.user);
+        toast.success("Sign in success");
+        form.reset();
+        navigate("/");
       })
       .catch((err) => {
         if (err.message === "Firebase: Error (auth/user-not-found).") {

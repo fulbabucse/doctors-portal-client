@@ -1,7 +1,11 @@
 import React from "react";
 import { format } from "date-fns";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const AppointmentModal = ({ treatment, selected, setTreatment }) => {
+  const { user } = useContext(AuthContext);
   const { name, slots } = treatment;
   const bookingDate = format(selected, "PP");
 
@@ -20,6 +24,10 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
       phone,
       treatment: name,
     };
+    if (phone.length < 11) {
+      toast.error("Phone number at least 11 Character");
+      return;
+    }
     console.log(user);
   };
   return (
@@ -103,6 +111,8 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
                   <input
                     type="text"
                     name="name"
+                    defaultValue={user?.displayName}
+                    disabled={user?.displayName}
                     className="form-control
           block
           w-full
@@ -151,6 +161,8 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
                   <input
                     type="email"
                     name="email"
+                    defaultValue={user?.email}
+                    disabled={user?.email}
                     className="form-control
           block
           w-full

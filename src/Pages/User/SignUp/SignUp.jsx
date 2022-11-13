@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUp from "../../../assets/icons/sign-up.svg";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
   const [errors, setErrors] = useState("");
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
     setErrors("");
@@ -24,20 +25,14 @@ const SignUp = () => {
       return;
     }
 
-    const user = {
-      firstName,
-      lastName,
-      email,
-      createPassword,
-      repeatPassword,
-      photoLink,
-    };
+    const UserName = `${firstName} ${lastName}`;
 
     createUser(email, createPassword)
       .then((res) => {
-        console.log(res.user);
+        updatesProfile(UserName, photoLink);
         toast.success("Account create success");
         form.reset();
+        navigate("/");
       })
       .catch((err) => {
         if (err.message === "Firebase: Error (auth/email-already-in-use).") {
@@ -50,6 +45,17 @@ const SignUp = () => {
         }
       });
   };
+
+  const updatesProfile = (name, photoLink) => {
+    const updateInfo = {
+      displayName: name,
+      photoURL: photoLink,
+    };
+    updateUserProfile(updateInfo)
+      .then((res) => {})
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="my-6 lg:my-16">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
