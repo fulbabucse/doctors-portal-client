@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import signIn from "../../../assets/icons/sign-in.svg";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
+  const [error, setError] = useState("");
   const { signUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
   const handleUserSignIn = (data) => {
-    console.log(data);
+    signUser(data.email, data.password)
+      .then(() => {
+        navigate("/");
+        toast.success("Successfully login Account");
+      })
+      .catch((err) => {
+        if (err.message === "Firebase: Error (auth/user-not-found).") {
+          setError("User not found");
+        } else if (err.message === "Firebase: Error (auth/wrong-password).") {
+          setError("You are entering the wrong password");
+        }
+      });
   };
   const handleGoogleSignIn = () => {};
   const handlePasswordReset = () => {};
@@ -88,7 +102,7 @@ const SignIn = () => {
             </button>
           </form>
           <div className="flex justify-between items-center mt-3">
-            {/* <p className="text-red-600">{errors}</p> */}
+            <p className="text-red-400 text-sm font-medium mt-2">{error}</p>
             <button
               onClick={handlePasswordReset}
               className="text-purple-600 hover:text-purple-700 focus:text-purple-700 active:text-purple-800 duration-200 transition ease-in-out"
