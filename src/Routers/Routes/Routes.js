@@ -5,6 +5,7 @@ import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import Contact from "../../Pages/Shared/Contact/Contact";
 import Home from "../../Pages/Home/Home/Home";
 import Reviews from "../../Pages/Reviews/Reviews";
+import SignUp from "../../Pages/User/SignUp/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: "appointment", element: <Appointment></Appointment> },
       { path: "reviews", element: <Reviews></Reviews> },
       { path: "contact", element: <Contact></Contact> },
+      { path: "sign-up", element: <SignUp></SignUp> },
     ],
   },
 ]);
