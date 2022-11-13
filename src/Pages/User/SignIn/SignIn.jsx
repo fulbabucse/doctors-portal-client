@@ -1,36 +1,21 @@
 import React from "react";
 import signIn from "../../../assets/icons/sign-in.svg";
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
-import { useState } from "react";
-import toast from "react-hot-toast";
+
+import { useForm } from "react-hook-form";
 
 const SignIn = () => {
-  const [errors, setErrors] = useState("");
   const { signUser } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const handleUserSignIn = (e) => {
-    e.preventDefault();
-    setErrors("");
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
-    signUser(email, password)
-      .then((res) => {
-        toast.success("Sign in success");
-        form.reset();
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.message === "Firebase: Error (auth/user-not-found).") {
-          setErrors("User not found");
-        } else if (err.message === "Firebase: Error (auth/wrong-password).") {
-          setErrors("You are entering the wrong password");
-        }
-      });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleUserSignIn = (data) => {
+    console.log(data);
   };
   const handleGoogleSignIn = () => {};
   const handlePasswordReset = () => {};
@@ -47,15 +32,16 @@ const SignIn = () => {
             </h1>
             <p className="font-medium">Sign in to access your account</p>
           </div>
-          <form onSubmit={handleUserSignIn} className="space-y-6">
+          <form onSubmit={handleSubmit(handleUserSignIn)} className="space-y-6">
             <div className="relative z-0 w-full group">
               <input
                 type="email"
-                name="email"
+                {...register("email", {
+                  required: "Email address is required",
+                })}
                 id="email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                 placeholder=" "
-                required
               />
               <label
                 htmlFor="email"
@@ -63,15 +49,30 @@ const SignIn = () => {
               >
                 Email address
               </label>
+              {errors.email && (
+                <p className="text-red-400 text-sm font-medium">
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div className="relative z-0 w-full group">
               <input
                 type="password"
-                name="password"
+                {...register("password", {
+                  required: "Password field are required",
+                  minLength: {
+                    value: 6,
+                    message: "Password should be at least 6 characters",
+                  },
+                  pattern: {
+                    value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                    message:
+                      "At least 1 special character, 1 uppercase letter, 1 Number character",
+                  },
+                })}
                 id="password"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primaryColor focus:outline-none focus:ring-0 focus:border-primaryColor peer"
                 placeholder=" "
-                required
               />
               <label
                 htmlFor="password"
@@ -79,6 +80,11 @@ const SignIn = () => {
               >
                 Password
               </label>
+              {errors.password && (
+                <p className="text-red-400 text-sm font-medium">
+                  {errors.password?.message}
+                </p>
+              )}
             </div>
 
             <button
@@ -91,7 +97,7 @@ const SignIn = () => {
             </button>
           </form>
           <div className="flex justify-between items-center mt-3">
-            <p className="text-red-600">{errors}</p>
+            {/* <p className="text-red-600">{errors}</p> */}
             <button
               onClick={handlePasswordReset}
               className="text-purple-600 hover:text-purple-700 focus:text-purple-700 active:text-purple-800 duration-200 transition ease-in-out"
