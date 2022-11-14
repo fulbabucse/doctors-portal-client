@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [error, setError] = useState("");
-  const { signUser } = useContext(AuthContext);
+  const { signUser, googleSignIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -31,8 +31,13 @@ const SignIn = () => {
         }
       });
   };
-  const handleGoogleSignIn = () => {};
-  const handlePasswordReset = () => {};
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        toast.success("Successfully Google Sign In");
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <div className="my-6 lg:my-16">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
@@ -103,12 +108,11 @@ const SignIn = () => {
           </form>
           <div className="flex justify-between items-center mt-3">
             <p className="text-red-400 text-sm font-medium mt-2">{error}</p>
-            <button
-              onClick={handlePasswordReset}
-              className="text-purple-600 hover:text-purple-700 focus:text-purple-700 active:text-purple-800 duration-200 transition ease-in-out"
-            >
-              Forgot password?
-            </button>
+            <Link to="/forget-password">
+              <button className="text-purple-600 hover:text-purple-700 focus:text-purple-700 active:text-purple-800 duration-200 transition ease-in-out">
+                Forgot password?
+              </button>
+            </Link>
           </div>
           <div>
             <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">

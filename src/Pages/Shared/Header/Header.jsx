@@ -95,9 +95,7 @@ const Header = () => {
                           aria-expanded="false"
                         >
                           <img
-                            className={`${
-                              user?.email ? "w-10 h-10" : "w-14 h-10"
-                            } rounded-full text-xs`}
+                            className={`h-10 text-xs rounded-full`}
                             src={user?.photoURL || doctorThumb}
                             alt="User Picture"
                           />

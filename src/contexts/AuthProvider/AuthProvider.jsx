@@ -8,6 +8,10 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -18,6 +22,8 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
 
+  const googleProvider = new GoogleAuthProvider();
+
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -25,13 +31,6 @@ const AuthProvider = ({ children }) => {
   const signUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-
-  useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unSubscribe();
-  }, []);
 
   const userSignOut = () => {
     return signOut(auth);
@@ -41,11 +40,33 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updateInfo);
   };
 
+  const googleSignIn = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  const passwordReset = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  const emailVerify = () => {
+    return sendEmailVerification(auth.currentUser);
+  };
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unSubscribe();
+  }, []);
+
   const authInfo = {
     user,
     createUser,
     signUser,
     userSignOut,
+    emailVerify,
+    googleSignIn,
+    passwordReset,
     updateUserProfile,
   };
   return (

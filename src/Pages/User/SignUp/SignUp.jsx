@@ -9,7 +9,8 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
   const [error, setError] = useState("");
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, emailVerify } =
+    useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -28,10 +29,6 @@ const SignUp = () => {
     }
 
     const fullName = `${data.firstName} ${data.lastName}`;
-
-    console.log(`Full Name: ${fullName}`);
-    console.log(data);
-
     createUser(data.email, data.password)
       .then((res) => {
         console.log(res.user);
@@ -40,9 +37,11 @@ const SignUp = () => {
           displayName: fullName,
           photoURL: data.photoLink,
         };
+
         updateUserProfile(updateInfo)
           .then(() => {})
           .catch((err) => console.error(err));
+        handleAccountVerify();
         navigate("/");
       })
 
@@ -56,6 +55,16 @@ const SignUp = () => {
           setError("Password should be at least 6 characters");
         }
       });
+  };
+
+  const handleAccountVerify = () => {
+    emailVerify()
+      .then(() => {
+        toast.success(
+          "Check your mail inbox or spam folder and verify account"
+        );
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
