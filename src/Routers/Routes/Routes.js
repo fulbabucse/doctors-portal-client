@@ -9,6 +9,8 @@ import SignUp from "../../Pages/User/SignUp/SignUp";
 import SignIn from "../../Pages/User/SignIn/SignIn";
 import Profile from "../../Pages/User/Profile/Profile";
 import ForgetPassword from "../../Pages/User/ForgetPassword/ForgetPassword";
+import Dashboard from "../../Dashboard/Dashboard/Dashboard";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +27,13 @@ export const router = createBrowserRouter([
       { path: "profile", element: <Profile></Profile> },
       { path: "forget-password", element: <ForgetPassword></ForgetPassword> },
     ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
   },
 ]);

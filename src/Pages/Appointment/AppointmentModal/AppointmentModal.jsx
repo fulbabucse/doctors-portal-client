@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
-const AppointmentModal = ({ treatment, selected }) => {
+const AppointmentModal = ({ treatment, selected, refetch }) => {
   const { user } = useContext(AuthContext);
   const { name, slots } = treatment;
   const bookingDate = format(selected, "PP");
@@ -16,7 +16,7 @@ const AppointmentModal = ({ treatment, selected }) => {
     const patientName = form.name.value;
     const email = form.email.value;
     const phone = form.phone.value;
-    const user = {
+    const booking = {
       patientName,
       bookingDate,
       appointmentTime,
@@ -28,7 +28,22 @@ const AppointmentModal = ({ treatment, selected }) => {
       toast.error("Phone number at least 11 Character");
       return;
     }
-    console.log(user);
+
+    fetch(`http://localhost:5000/bookings`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Booking success");
+          form.reset();
+          refetch();
+        }
+      });
   };
   return (
     <div>

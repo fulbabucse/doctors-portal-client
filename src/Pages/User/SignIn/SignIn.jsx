@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import signIn from "../../../assets/icons/sign-in.svg";
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
@@ -17,10 +17,12 @@ const SignIn = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleUserSignIn = (data) => {
     signUser(data.email, data.password)
       .then(() => {
-        navigate("/");
+        navigate(from, { replace: true });
         toast.success("Successfully login Account");
       })
       .catch((err) => {
