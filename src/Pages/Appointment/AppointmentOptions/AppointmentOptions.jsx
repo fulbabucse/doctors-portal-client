@@ -6,7 +6,7 @@ import BookingModal from "./BookingModal/BookingModal";
 import OptionCard from "./OptionCard/OptionCard";
 
 const AppointmentOptions = ({ selectedDate }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState(false);
   const [options, setOptions] = useState([]);
   //   const [treatment, setTreatment] = useState({});
   const date = format(selectedDate, "PP");
@@ -29,13 +29,13 @@ const AppointmentOptions = ({ selectedDate }) => {
           <OptionCard
             key={option._id}
             option={option}
-            setShowModal={setShowModal}
+            setModalData={setModalData}
           ></OptionCard>
         ))}
       </div>
       <BookingModal
-        showModal={showModal}
-        setShowModal={setShowModal}
+        modalData={modalData}
+        setModalData={setModalData}
         date={date}
       ></BookingModal>
     </div>

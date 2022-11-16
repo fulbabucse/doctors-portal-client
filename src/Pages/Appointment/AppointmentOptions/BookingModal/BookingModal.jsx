@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../contexts/AuthProvider/AuthProvider";
 
-const BookingModal = ({ showModal, setShowModal, date }) => {
+const BookingModal = ({ modalData, setModalData, date }) => {
   const { user } = useContext(AuthContext);
   const {
     register,
@@ -15,34 +15,31 @@ const BookingModal = ({ showModal, setShowModal, date }) => {
   const handleBookingSubmit = (data) => {
     const booking = {
       patient: user?.displayName,
-      treatment: showModal?.option?.name,
+      treatment: modalData?.option?.name,
       bookingDate: date,
       appointmentTime: data.appointmentTime,
       email: user?.email,
       phoneNumber: data.phoneNumber,
     };
     console.log(booking);
-    setShowModal(false);
+    setModalData(false);
   };
 
   return (
     <div>
-      {showModal ? (
+      {modalData ? (
         <>
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div
               className="fixed inset-0 w-full h-full bg-black opacity-40"
-              onClick={() => setShowModal(false)}
+              onClick={() => setModalData(false)}
             ></div>
             <div className="flex items-center min-h-screen px-4 py-8">
               <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
                 <h1 className="text-xl text-center mb-3 font-semibold text-primaryColor">
-                  {showModal?.option?.name}
+                  {modalData?.option?.name}
                 </h1>
-                <form
-                  onSubmit={handleSubmit(handleBookingSubmit)}
-                  className="text-center"
-                >
+                <form onSubmit={handleSubmit(handleBookingSubmit)}>
                   <div className="space-y-2">
                     <div>
                       <input
@@ -65,7 +62,7 @@ const BookingModal = ({ showModal, setShowModal, date }) => {
       font-normal
       text-gray-700
       bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-primaryColor/20
+      border border-solid border-gray-300
       rounded
       transition
       ease-in-out
@@ -73,7 +70,7 @@ const BookingModal = ({ showModal, setShowModal, date }) => {
       focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
                         aria-label="Default select example"
                       >
-                        {showModal?.option?.slots?.map((slot, idx) => (
+                        {modalData?.option?.slots?.map((slot, idx) => (
                           <option key={idx} value={slot}>
                             {slot}
                           </option>
@@ -100,7 +97,7 @@ const BookingModal = ({ showModal, setShowModal, date }) => {
                     </div>
                     <div>
                       <input
-                        type="text"
+                        type="number"
                         {...register("phoneNumber", {
                           required: "Phone Number required",
                           minLength: {
@@ -112,14 +109,14 @@ const BookingModal = ({ showModal, setShowModal, date }) => {
                         placeholder="Phone Number"
                       />
                       {errors?.phoneNumber && (
-                        <p className="text-red-400 font-medium">
+                        <p className="text-red-400 font-medium text-sm mt-1">
                           {errors.phoneNumber?.message}
                         </p>
                       )}
                     </div>
                   </div>
                   <div className="items-center gap-2 mt-3 sm:flex">
-                    <button className="w-full mt-2 p-2.5 flex-1 text-white bg-primaryColor rounded-md outline-none ring-offset-2 ring-primaryColor focus:ring-2">
+                    <button className="inline-block w-full px-4 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-white font-medium text-lg leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out">
                       Submit
                     </button>
                   </div>

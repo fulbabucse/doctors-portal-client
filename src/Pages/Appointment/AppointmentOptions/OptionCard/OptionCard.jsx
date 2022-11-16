@@ -1,6 +1,6 @@
 import React from "react";
 
-const OptionCard = ({ option, setShowModal }) => {
+const OptionCard = ({ option, setModalData }) => {
   const { name, slots } = option;
   return (
     <div className="text-center py-10 px-3 shadow-lg rounded-lg">
@@ -12,7 +12,7 @@ const OptionCard = ({ option, setShowModal }) => {
       <div className="mt-2">
         <button
           type="button"
-          onClick={() => setShowModal({ false: false, option })}
+          onClick={() => setModalData({ false: false, option })}
           //   onBlur={() => setTreatment(option)}
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
