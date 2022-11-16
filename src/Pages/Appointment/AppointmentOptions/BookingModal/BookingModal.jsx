@@ -1,15 +1,15 @@
 import React from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../../contexts/AuthProvider/AuthProvider";
 
-const BookingModal = ({ modalData, setModalData, date }) => {
+const BookingModal = ({ modalData, setModalData, date, refetch }) => {
   const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    resetField,
   } = useForm();
 
   const handleBookingSubmit = (data) => {
@@ -21,8 +21,24 @@ const BookingModal = ({ modalData, setModalData, date }) => {
       email: user?.email,
       phoneNumber: data.phoneNumber,
     };
-    console.log(booking);
-    setModalData(false);
+
+    fetch(`http://localhost:5000/bookings`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setModalData(false);
+          toast.success("Booking Complete");
+          refetch();
+        } else {
+          toast.error(data.message);
+        }
+      });
   };
 
   return (
@@ -71,7 +87,7 @@ const BookingModal = ({ modalData, setModalData, date }) => {
                         aria-label="Default select example"
                       >
                         {modalData?.option?.slots?.map((slot, idx) => (
-                          <option key={idx} value={slot}>
+                          <option key={idx} defaultValue={slot}>
                             {slot}
                           </option>
                         ))}
