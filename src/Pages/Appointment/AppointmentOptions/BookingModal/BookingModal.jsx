@@ -3,17 +3,25 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../contexts/AuthProvider/AuthProvider";
 
-const BookingModal = ({ showModal, setShowModal }) => {
+const BookingModal = ({ showModal, setShowModal, date }) => {
   const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    resetField,
   } = useForm();
 
   const handleBookingSubmit = (data) => {
-    console.log(data);
-
+    const booking = {
+      patient: user?.displayName,
+      treatment: showModal?.option?.name,
+      bookingDate: date,
+      appointmentTime: data.appointmentTime,
+      email: user?.email,
+      phoneNumber: data.phoneNumber,
+    };
+    console.log(booking);
     setShowModal(false);
   };
 
@@ -29,7 +37,7 @@ const BookingModal = ({ showModal, setShowModal }) => {
             <div className="flex items-center min-h-screen px-4 py-8">
               <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
                 <h1 className="text-xl text-center mb-3 font-semibold text-primaryColor">
-                  Teeth Cleaning
+                  {showModal?.option?.name}
                 </h1>
                 <form
                   onSubmit={handleSubmit(handleBookingSubmit)}
@@ -39,23 +47,45 @@ const BookingModal = ({ showModal, setShowModal }) => {
                     <div>
                       <input
                         type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
+                        defaultValue={date}
+                        disabled
+                        className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Date"
                       />
                     </div>
                     <div>
-                      <input
-                        type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
-                        placeholder="Slots"
-                      />
+                      <select
+                        {...register("appointmentTime")}
+                        className="form-select appearance-none
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-primaryColor/20
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
+                        aria-label="Default select example"
+                      >
+                        {showModal?.option?.slots?.map((slot, idx) => (
+                          <option key={idx} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div>
                       <input
                         type="text"
                         defaultValue={user?.displayName}
                         disabled
-                        class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
+                        className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Name"
                       />
                     </div>
@@ -64,7 +94,7 @@ const BookingModal = ({ showModal, setShowModal }) => {
                         type="email"
                         defaultValue={user?.email}
                         disabled
-                        class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
+                        className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Email"
                       />
                     </div>
@@ -78,7 +108,7 @@ const BookingModal = ({ showModal, setShowModal }) => {
                             message: "11 character valid Phone number required",
                           },
                         })}
-                        class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
+                        className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Phone Number"
                       />
                       {errors?.phoneNumber && (

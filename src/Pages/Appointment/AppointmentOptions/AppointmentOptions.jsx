@@ -8,6 +8,7 @@ import OptionCard from "./OptionCard/OptionCard";
 const AppointmentOptions = ({ selectedDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [options, setOptions] = useState([]);
+  //   const [treatment, setTreatment] = useState({});
   const date = format(selectedDate, "PP");
 
   useEffect(() => {
