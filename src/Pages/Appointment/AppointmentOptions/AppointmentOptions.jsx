@@ -2,9 +2,11 @@ import { format } from "date-fns";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import BookingModal from "./BookingModal/BookingModal";
 import OptionCard from "./OptionCard/OptionCard";
 
 const AppointmentOptions = ({ selectedDate }) => {
+  const [showModal, setShowModal] = useState(false);
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -22,9 +24,17 @@ const AppointmentOptions = ({ selectedDate }) => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {options.map((option) => (
-          <OptionCard key={option._id} option={option}></OptionCard>
+          <OptionCard
+            key={option._id}
+            option={option}
+            setShowModal={setShowModal}
+          ></OptionCard>
         ))}
       </div>
+      <BookingModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+      ></BookingModal>
     </div>
   );
 };
