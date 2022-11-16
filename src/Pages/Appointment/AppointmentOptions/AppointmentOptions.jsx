@@ -8,6 +8,7 @@ import OptionCard from "./OptionCard/OptionCard";
 const AppointmentOptions = ({ selectedDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [options, setOptions] = useState([]);
+  const date = format(selectedDate, "PP");
 
   useEffect(() => {
     fetch(`http://localhost:5000/appointmentOptions`)
@@ -17,7 +18,7 @@ const AppointmentOptions = ({ selectedDate }) => {
 
   return (
     <div className="my-5 lg:my-16">
-      <div>
+      <div className="mb-4">
         <h3 className="text-secondaryColor text-xl text-center">
           Available Appointment on {format(selectedDate, "PP")}
         </h3>
@@ -34,6 +35,7 @@ const AppointmentOptions = ({ selectedDate }) => {
       <BookingModal
         showModal={showModal}
         setShowModal={setShowModal}
+        date={date}
       ></BookingModal>
     </div>
   );
