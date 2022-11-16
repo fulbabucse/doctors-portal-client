@@ -1,0 +1,16 @@
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "../Dashboard/Navbar/Navbar";
+
+const DashboardLayout = () => {
+  return (
+    <div>
+      <Navbar></Navbar>
+      <div className="max-w-screen-xl mx-auto px-4 lg:px-0">
+        <Outlet></Outlet>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;

@@ -9,8 +9,10 @@ import SignUp from "../../Pages/User/SignUp/SignUp";
 import SignIn from "../../Pages/User/SignIn/SignIn";
 import Profile from "../../Pages/User/Profile/Profile";
 import ForgetPassword from "../../Pages/User/ForgetPassword/ForgetPassword";
-import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import DashboardLayout from "../../Layouts/DashboardLayout";
+import Dashboard from "../../Dashboard/Dashboard/Dashboard";
+import MyAppointment from "../../Dashboard/MyAppointment/MyAppointment";
 
 export const router = createBrowserRouter([
   {
@@ -29,11 +31,15 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: (
       <PrivateRoute>
-        <Dashboard></Dashboard>
+        <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    children: [
+      { path: "/dashboard", element: <Dashboard></Dashboard> },
+      { path: "my-appointment", element: <MyAppointment></MyAppointment> },
+    ],
   },
 ]);

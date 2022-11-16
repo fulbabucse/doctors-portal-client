@@ -3,11 +3,11 @@ import { useContext } from "react";
 import toast from "react-hot-toast";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/doctor-plus-logo.png";
-import doctorThumb from "../../../assets/icons/doctor-thumb.jpg";
-import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import logo from "../../assets/doctor-plus-logo.png";
+import doctorThumb from "../../assets/icons/doctor-thumb.jpg";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-const Header = () => {
+const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const { user, userSignOut } = useContext(AuthContext);
 
@@ -25,7 +25,7 @@ const Header = () => {
           <div className="lg:flex lg:items-center lg:justify-between w-full">
             <div className="flex items-center justify-between">
               <div>
-                <Link to="/">
+                <Link to="/dashboard">
                   <h1 className="flex items-center gap-1 text-xl lg:text-3xl font-bold text-gray-800">
                     Doctors <img className="w-4 h-4" src={logo} alt="" /> Portal
                   </h1>
@@ -51,17 +51,17 @@ const Header = () => {
             >
               <div className="secondary-font uppercase space-y-3 md:space-y-0 mt-4 lg:mt-0 lg:space-y-0 flex flex-col transition-all duration-300 ease-in-out  text-gray-600  dark:text-gray-300 lg:flex lg:px-0 lg:flex-row lg:items-center">
                 <Link
-                  to="/"
+                  to="/dashboard"
                   className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
                 >
                   Home
                 </Link>
 
                 <Link
-                  to="/appointment"
+                  to="/dashboard/my-appointment"
                   className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
                 >
-                  Appointment
+                  My Appointment
                 </Link>
 
                 <Link
@@ -70,29 +70,6 @@ const Header = () => {
                 >
                   Reviews
                 </Link>
-
-                <Link
-                  to="/about"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  About
-                </Link>
-
-                <Link
-                  to="/contact"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  Contact Us
-                </Link>
-
-                {/* {user?.email && ( */}
-                <Link
-                  to="/dashboard"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  Dashboard
-                </Link>
-                {/* )} */}
 
                 <div className="flex justify-center mt-6 lg:flex lg:mt-0 lg:-mx-2">
                   <div>
@@ -176,4 +153,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
