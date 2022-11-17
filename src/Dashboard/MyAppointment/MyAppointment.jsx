@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const MyAppointment = () => {
-  const { user, setLoading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const { data: bookings = [] } = useQuery({
     queryKey: ["bookings", user?.email],
