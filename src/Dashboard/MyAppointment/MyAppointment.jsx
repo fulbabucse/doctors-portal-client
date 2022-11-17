@@ -4,13 +4,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const MyAppointment = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setLoading } = useContext(AuthContext);
 
   const { data: bookings = [] } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://doctors-portal-server-navy.vercel.app/bookings?email=${user?.email}`,
+        `http://localhost:5000/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem(

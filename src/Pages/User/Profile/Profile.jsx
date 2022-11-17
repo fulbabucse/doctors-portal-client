@@ -37,10 +37,10 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = () => {
-    const agree = window.confirm("Are you sure delete this account");
+    const agree = window.confirm("Are you sure delete your account");
     if (agree) {
       deleteUserAccount()
-        .then((res) => {
+        .then(() => {
           toast.error("Account deleted successfully");
         })
         .catch((err) => console.error(err));

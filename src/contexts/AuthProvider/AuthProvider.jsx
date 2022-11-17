@@ -12,6 +12,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
   sendEmailVerification,
+  deleteUser,
 } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -61,6 +62,12 @@ const AuthProvider = ({ children }) => {
     return sendEmailVerification(auth.currentUser);
   };
 
+  const deleteUserAccount = () => {
+    setLoading(true);
+    localStorage.removeItem("doctors-portal-access-token");
+    return deleteUser(auth.currentUser);
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -79,6 +86,7 @@ const AuthProvider = ({ children }) => {
     googleSignIn,
     passwordReset,
     updateUserProfile,
+    deleteUserAccount,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

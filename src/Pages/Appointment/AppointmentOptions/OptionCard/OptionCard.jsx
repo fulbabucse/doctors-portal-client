@@ -2,6 +2,7 @@ import React from "react";
 
 const OptionCard = ({ option, setModalData }) => {
   const { name, slots } = option;
+
   return (
     <div className="text-center py-10 px-3 shadow-lg rounded-lg">
       <h3 className="text-secondaryColor text-xl font-medium">{name}</h3>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import doctor from "../../../assets/images/doctor.png";
 import "../../../assets/styles.css";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
@@ -23,7 +24,9 @@ const HomeAppointment = () => {
             here', making it look like readable English. Many desktop publishing
             packages and web page
           </p>
-          <PrimaryButton>Get Started</PrimaryButton>
+          <Link to="/appointment">
+            <PrimaryButton>Get Started</PrimaryButton>
+          </Link>
         </div>
       </div>
     </div>

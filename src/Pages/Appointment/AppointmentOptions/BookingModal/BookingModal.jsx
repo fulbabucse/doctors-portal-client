@@ -13,6 +13,11 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
   } = useForm();
 
   const handleBookingSubmit = (data) => {
+    if (!user?.email) {
+      toast.error("Please Login");
+      return;
+    }
+
     const booking = {
       patient: user?.displayName,
       treatment: modalData?.option?.name,
@@ -22,7 +27,7 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
       phoneNumber: data.phoneNumber,
     };
 
-    fetch(`https://doctors-portal-server-navy.vercel.app/bookings`, {
+    fetch(`http://localhost:5000/bookings`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -61,7 +66,6 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
                       <input
                         type="text"
                         defaultValue={date}
-                        disabled
                         className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Date"
                       />
@@ -97,7 +101,7 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
                       <input
                         type="text"
                         defaultValue={user?.displayName}
-                        disabled
+                        disabled={user?.email}
                         className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Name"
                       />
@@ -106,7 +110,7 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
                       <input
                         type="email"
                         defaultValue={user?.email}
-                        disabled
+                        disabled={user?.email}
                         className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-primaryColor focus:border-primaryColor block w-full p-3 dark:placeholder-gray-300 focus:outline-primaryColor"
                         placeholder="Email"
                       />
