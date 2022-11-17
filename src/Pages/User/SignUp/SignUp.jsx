@@ -6,18 +6,25 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import signUp from "../../../assets/icons/sign-up.svg";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import useToken from "../../../hooks/useToken";
 
 const SignUp = () => {
   const [error, setError] = useState("");
   const { createUser, updateUserProfile, emailVerify } =
     useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = useToken(userEmail);
   const navigate = useNavigate();
+
+  if (token) {
+    navigate("/");
+  }
 
   const handleSignUp = (data) => {
     const password = data.password;
@@ -32,17 +39,17 @@ const SignUp = () => {
     createUser(data.email, data.password)
       .then((res) => {
         console.log(res.user);
-        toast.success("Successfully created account");
         const updateInfo = {
           displayName: fullName,
           photoURL: data.photoLink,
         };
 
         updateUserProfile(updateInfo)
-          .then(() => {})
+          .then(() => {
+            handleAccountVerify();
+            saveUser(fullName, data.email);
+          })
           .catch((err) => console.error(err));
-        handleAccountVerify();
-        navigate("/");
       })
 
       .catch((err) => {
@@ -53,6 +60,35 @@ const SignUp = () => {
           "Firebase: Password should be at least 6 characters (auth/weak-password)."
         ) {
           setError("Password should be at least 6 characters");
+        }
+      });
+  };
+
+  const saveUser = (name, email) => {
+    const user = {
+      name,
+      email,
+    };
+    fetch(`http://localhost:5000/users`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setUserEmail(email);
+      });
+  };
+
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("doctors-portal-access-token", data.accessToken);
+          navigate("/");
         }
       });
   };

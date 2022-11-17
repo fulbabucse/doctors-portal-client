@@ -7,6 +7,7 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useToken from "../../../hooks/useToken";
 
 const SignIn = () => {
   const [error, setError] = useState("");
@@ -16,14 +17,21 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = useToken(userEmail);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  if (token) {
+    navigate(from, { replace: true });
+    toast.success("Successfully login Account");
+  }
+
   const handleUserSignIn = (data) => {
     signUser(data.email, data.password)
       .then(() => {
-        navigate(from, { replace: true });
-        toast.success("Successfully login Account");
+        setUserEmail(data.email);
       })
       .catch((err) => {
         if (err.message === "Firebase: Error (auth/user-not-found).") {
