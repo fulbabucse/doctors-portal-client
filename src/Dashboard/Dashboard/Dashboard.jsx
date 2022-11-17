@@ -3,7 +3,13 @@ import React from "react";
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard home</h1>
+      <marquee
+        className="text-3xl font-semibold text-gray-700 mt-5"
+        behavior=""
+        direction=""
+      >
+        Doctors Portal User Admin
+      </marquee>
     </div>
   );
 };

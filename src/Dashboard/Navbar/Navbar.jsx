@@ -63,13 +63,6 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/dashboard"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  Dashboard
-                </Link>
-
-                <Link
                   to="/dashboard/my-appointment"
                   className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
                 >
