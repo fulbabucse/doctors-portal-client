@@ -105,7 +105,7 @@ const Header = () => {
                           aria-expanded="false"
                         >
                           <img
-                            className={`h-10 text-xs rounded-full`}
+                            className={`h-10 w-10 text-xs rounded-full`}
                             src={user?.photoURL || doctorThumb}
                             alt="User Picture"
                           />

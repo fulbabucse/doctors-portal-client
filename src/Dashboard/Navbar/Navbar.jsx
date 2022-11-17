@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/doctor-plus-logo.png";
 import doctorThumb from "../../assets/icons/doctor-thumb.jpg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const { user, userSignOut } = useContext(AuthContext);
+
+  const [isAdmin] = useAdmin(user?.email);
 
   const handleUserSignOut = () => {
     userSignOut()
@@ -53,10 +56,17 @@ const Navbar = () => {
             >
               <div className="secondary-font capitalize space-y-3 md:space-y-0 mt-4 lg:mt-0 lg:space-y-0 flex flex-col transition-all duration-300 ease-in-out  text-gray-600  dark:text-gray-300 lg:flex lg:px-0 lg:flex-row lg:items-center">
                 <Link
-                  to="/dashboard"
+                  to="/"
                   className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
                 >
                   Home
+                </Link>
+
+                <Link
+                  to="/dashboard"
+                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                >
+                  Dashboard
                 </Link>
 
                 <Link
@@ -66,12 +76,14 @@ const Navbar = () => {
                   My Appointment
                 </Link>
 
-                <Link
-                  to="/reviews"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  Reviews
-                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/dashboard/all-users"
+                    className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                  >
+                    All Users
+                  </Link>
+                )}
 
                 <div className="flex justify-center mt-6 lg:flex lg:mt-0 lg:-mx-2">
                   <div>

@@ -13,6 +13,8 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import DashboardLayout from "../../Layouts/DashboardLayout";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyAppointment from "../../Dashboard/MyAppointment/MyAppointment";
+import AllUsers from "../../Dashboard/AllUsers/AllUsers";
+import AdminRoute from "../AdminRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +48,18 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "/dashboard", element: <Dashboard></Dashboard> },
-      { path: "my-appointment", element: <MyAppointment></MyAppointment> },
+      {
+        path: "/dashboard/my-appointment",
+        element: <MyAppointment></MyAppointment>,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);
