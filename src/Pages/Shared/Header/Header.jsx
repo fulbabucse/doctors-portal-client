@@ -13,7 +13,7 @@ const Header = () => {
 
   const handleUserSignOut = () => {
     userSignOut()
-      .then((res) => {
+      .then(() => {
         toast.success("Sign Out Success");
       })
       .catch((err) => console.error(err));
@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <div>
       <nav className="bg-white shadow dark:bg-gray-800">
-        <div className="container px-4 lg:px-0 py-4 mx-auto">
+        <div className="container px-4 lg:px-0 py-2 mx-auto">
           <div className="lg:flex lg:items-center lg:justify-between w-full">
             <div className="flex items-center justify-between">
               <div>
@@ -85,16 +85,16 @@ const Header = () => {
                   Contact Us
                 </Link>
 
-                {/* {user?.email && ( */}
-                <Link
-                  to="/dashboard"
-                  className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                >
-                  Dashboard
-                </Link>
-                {/* )} */}
+                {user?.email && (
+                  <Link
+                    to="/dashboard"
+                    className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                  >
+                    Dashboard
+                  </Link>
+                )}
 
-                <div className="flex justify-center mt-6 lg:flex lg:mt-0 lg:-mx-2">
+                <div className="flex justify-center lg:flex lg:mt-0 lg:-mx-2">
                   <div>
                     <div className="flex justify-center">
                       <div className="dropdown relative">
@@ -105,7 +105,7 @@ const Header = () => {
                           aria-expanded="false"
                         >
                           <img
-                            className={`h-10 w-10 text-xs rounded-full`}
+                            className="h-12 w-12 text-xs rounded-full"
                             src={user?.photoURL || doctorThumb}
                             alt="User Picture"
                           />

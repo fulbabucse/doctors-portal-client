@@ -8,7 +8,7 @@ const Dashboard = () => {
         behavior=""
         direction=""
       >
-        Doctors Portal User Admin
+        Doctors Portal User Dashboard
       </marquee>
     </div>
   );

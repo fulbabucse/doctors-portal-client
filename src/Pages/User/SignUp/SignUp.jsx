@@ -26,42 +26,57 @@ const SignUp = () => {
     navigate("/");
   }
 
-  const handleSignUp = (data) => {
-    const password = data.password;
-    const confirmPassword = data.confirmPassword;
+  const handleSignUp = (field) => {
+    const formData = new FormData();
+    formData.append("image", field.image[0]);
+
+    const password = field.password;
+    const confirmPassword = field.confirmPassword;
 
     if (password !== confirmPassword) {
       setError("Password did not match");
       return;
     }
 
-    const fullName = `${data.firstName} ${data.lastName}`;
-    createUser(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
-        const updateInfo = {
-          displayName: fullName,
-          photoURL: data.photoLink,
-        };
+    const fullName = `${field.firstName} ${field.lastName}`;
 
-        updateUserProfile(updateInfo)
-          .then(() => {
-            handleAccountVerify();
-            saveUser(fullName, data.email);
+    const url = `https://api.imgbb.com/1/upload?key=58298ae343d385bbe171ee4d8ac9424e`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        createUser(field.email, field.password)
+          .then((res) => {
+            console.log(res.user);
+            const updateInfo = {
+              displayName: fullName,
+              photoURL: data.data.display_url,
+            };
+
+            updateUserProfile(updateInfo)
+              .then(() => {
+                handleAccountVerify();
+                saveUser(fullName, field.email);
+              })
+              .catch((err) => console.error(err));
           })
-          .catch((err) => console.error(err));
-      })
 
-      .catch((err) => {
-        if (err.message === "Firebase: Error (auth/email-already-in-use).") {
-          setError("This Email already used");
-        } else if (
-          err.message ===
-          "Firebase: Password should be at least 6 characters (auth/weak-password)."
-        ) {
-          setError("Password should be at least 6 characters");
-        }
-      });
+          .catch((err) => {
+            if (
+              err.message === "Firebase: Error (auth/email-already-in-use)."
+            ) {
+              setError("This Email already used");
+            } else if (
+              err.message ===
+              "Firebase: Password should be at least 6 characters (auth/weak-password)."
+            ) {
+              setError("Password should be at least 6 characters");
+            }
+          });
+      })
+      .catch((err) => console.error(err));
   };
 
   const saveUser = (name, email) => {
@@ -69,7 +84,7 @@ const SignUp = () => {
       name,
       email,
     };
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://doctors-portal-server-navy.vercel.app/users`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -83,7 +98,7 @@ const SignUp = () => {
   };
 
   const getUserToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://doctors-portal-server-navy.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
@@ -242,7 +257,7 @@ const SignUp = () => {
               </div>
             </div>
 
-            <div className="relative z-0 w-full group">
+            {/* <div className="relative z-0 w-full group">
               <input
                 type="text"
                 {...register("photoLink", {
@@ -263,7 +278,25 @@ const SignUp = () => {
                   {errors.photoLink?.message}
                 </p>
               )}
+            </div> */}
+
+            <div>
+              <label htmlFor="image" className="block mb-2 text-sm">
+                Select Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                {...register("image", { required: "Image is required" })}
+                accept="image/*"
+              />
+              {errors.image && (
+                <p className="text-red-400 font-semibold text-sm">
+                  {errors?.image?.message}
+                </p>
+              )}
             </div>
+
             <button
               type="submit"
               data-mdb-ripple="true"

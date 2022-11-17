@@ -58,7 +58,7 @@ const Contact = () => {
           </div>
           <div className="form-group">
             <input
-              type="email"
+              type="text"
               className="form-control block
         w-full
         px-3
