@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useState } from "react";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 import Spinner from "../../components/Spinner/Spinner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -32,6 +32,11 @@ const MyAppointment = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>
+          {user?.displayName} Your Appointments list - Doctors Portal
+        </title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
           My Appointments

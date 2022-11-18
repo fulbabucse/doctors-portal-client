@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner/Spinner";
 import AgreeModal from "../AgreeModal/AgreeModal";
@@ -53,6 +54,9 @@ const ManageDoctors = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Manage Doctors - Doctors Portal</title>
+      </Helmet>
       <div className="my-4">
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
           All Doctors {doctors.length}

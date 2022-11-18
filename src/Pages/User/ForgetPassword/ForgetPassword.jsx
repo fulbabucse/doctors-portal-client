@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +25,9 @@ const ForgetPassword = () => {
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 my-6 lg:my-16 items-center">
+      <Helmet>
+        <title>Forget Password - Doctors Portal</title>
+      </Helmet>
       <div>
         <img src={forgetImg} alt="Forget Password" />
       </div>

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
@@ -41,6 +42,9 @@ const AllUsers = () => {
   return (
     <div>
       <div className="my-4">
+        <Helmet>
+          <title>All Users - Doctors Portal</title>
+        </Helmet>
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
           All Users {users.length}
         </h2>

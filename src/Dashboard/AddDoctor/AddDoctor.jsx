@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -63,6 +64,9 @@ const AddDoctor = () => {
 
   return (
     <div className="w-full md:w-3/5 lg:w-2/5 mx-auto my-3">
+      <Helmet>
+        <title>Add Doctors - Doctors Portal</title>
+      </Helmet>
       <div className="my-3">
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
           Add a New Doctor

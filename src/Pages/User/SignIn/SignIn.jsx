@@ -8,6 +8,7 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useToken from "../../../hooks/useToken";
+import { Helmet } from "react-helmet";
 
 const SignIn = () => {
   const [error, setError] = useState("");
@@ -50,6 +51,9 @@ const SignIn = () => {
   };
   return (
     <div className="my-6 lg:my-16">
+      <Helmet>
+        <title>Sign In - Doctors Portal</title>
+      </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
         <div className="">
           <img src={signIn} alt="Sign Up Logo" />

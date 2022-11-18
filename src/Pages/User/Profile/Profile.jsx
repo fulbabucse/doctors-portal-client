@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
@@ -20,7 +21,7 @@ const Profile = () => {
     };
 
     updateUserProfile(updatesInfo)
-      .then((res) => {
+      .then(() => {
         toast.success("Update successfully");
         e.target.reset();
       })
@@ -49,6 +50,9 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{user?.displayName} Profile - Doctors Portal</title>
+      </Helmet>
       <div className="flex flex-col items-center mt-6">
         <div className="flex flex-col items-center">
           <img
