@@ -1,8 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner/Spinner";
+import AgreeModal from "../AgreeModal/AgreeModal";
 
 const ManageDoctors = () => {
+  const [deleteDoctor, setDeleteDoctor] = useState(null);
+  const cancelModal = () => {
+    setDeleteDoctor(null);
+  };
   const {
     data: doctors = [],
     isLoading,
@@ -22,20 +29,22 @@ const ManageDoctors = () => {
     },
   });
 
-  const handleDeleteDoctor = (id) => {
-    const agree = window.confirm("Are you sure delete this doctor");
-    if (agree) {
-      fetch(`http://localhost:5000/doctors/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount > 0) {
-            toast.error("Doctor delete successfully");
-            refetch();
-          }
-        });
-    }
+  const handleDeleteDoctor = (doctor) => {
+    fetch(`http://localhost:5000/doctors/${doctor?._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "doctors-portal-access-token"
+        )}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.error("Doctor delete successfully");
+          refetch();
+        }
+      });
   };
 
   if (isLoading) {
@@ -124,14 +133,23 @@ const ManageDoctors = () => {
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                         <button
-                          onClick={() => handleDeleteDoctor(doctor?._id)}
                           type="button"
+                          onClick={() => setDeleteDoctor(doctor)}
                           data-mdb-ripple="true"
                           data-mdb-ripple-color="light"
+                          data-bs-toggle="modal"
+                          data-bs-target="#agree-modal"
                           className="inline-block px-3 py-2 bg-dangerColor text-white font-medium text-lg leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out"
                         >
                           Delete
                         </button>
+                        <AgreeModal
+                          title={`Are you sure delete this doctor`}
+                          message={`If you delete ${deleteDoctor?.name}. It can't be back?`}
+                          cancelModal={cancelModal}
+                          handleDeleteDoctor={handleDeleteDoctor}
+                          deleteDoctor={deleteDoctor}
+                        ></AgreeModal>
                       </td>
                     </tr>
                   ))}
