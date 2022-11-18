@@ -3,14 +3,40 @@ import React from "react";
 import Spinner from "../../components/Spinner/Spinner";
 
 const ManageDoctors = () => {
-  const { data: doctors = [], isLoading } = useQuery({
+  const {
+    data: doctors = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["doctors"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/doctors");
+      const res = await fetch("http://localhost:5000/doctors", {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(
+            "doctors-portal-access-token"
+          )}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
   });
+
+  const handleDeleteDoctor = (id) => {
+    const agree = window.confirm("Are you sure delete this doctor");
+    if (agree) {
+      fetch(`http://localhost:5000/doctors/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast.error("Doctor delete successfully");
+            refetch();
+          }
+        });
+    }
+  };
 
   if (isLoading) {
     return <Spinner></Spinner>;
@@ -20,7 +46,7 @@ const ManageDoctors = () => {
     <div>
       <div className="my-4">
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
-          All Doctors
+          All Doctors {doctors.length}
         </h2>
       </div>
       <div className="flex flex-col">
@@ -98,6 +124,7 @@ const ManageDoctors = () => {
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                         <button
+                          onClick={() => handleDeleteDoctor(doctor?._id)}
                           type="button"
                           data-mdb-ripple="true"
                           data-mdb-ripple-color="light"
