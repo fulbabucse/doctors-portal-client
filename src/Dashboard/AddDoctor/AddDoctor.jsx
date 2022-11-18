@@ -19,7 +19,25 @@ const AddDoctor = () => {
   });
 
   const handleAddDoctors = (doctorData) => {
-    console.log(doctorData);
+    const formData = new FormData();
+    formData.append("image", doctorData.image[0]);
+
+    fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_API_KEY}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((imageData) => {
+        const doctorInfo = {
+          name: doctorData.name,
+          email: doctorData.email,
+          speciality: doctorData.speciality,
+          image: imageData.data.url,
+        };
+      });
   };
 
   return (
@@ -84,12 +102,60 @@ const AddDoctor = () => {
           </label>
           <select
             id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryColor focus:border-primaryColor block w-full p-3 outline-none"
+            {...register("speciality", {
+              required: "Speciality is required",
+            })}
+            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryColor focus:border-primaryColor block w-full p-3 outline-none"
           >
             {appointmentSpeciality.map((speaciality) => (
-              <option key={speaciality._id}>{speaciality.name}</option>
+              <option key={speaciality._id} value={speaciality.name}>
+                {speaciality.name}
+              </option>
             ))}
           </select>
+          {errors.speciality && (
+            <p className="text-red-400 text-sm font-medium">
+              {errors.speciality?.message}
+            </p>
+          )}
+        </div>
+
+        <div className="flex justify-center">
+          <div className="w-full">
+            <label
+              htmlFor="formFile"
+              className="form-label inline-block mb-2 text-gray-700"
+            >
+              Doctor Picture
+            </label>
+            <input
+              className="form-control
+    block
+    w-full
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-primaryColor focus:outline-none"
+              type="file"
+              {...register("image", {
+                required: "Picture is required",
+              })}
+              id="formFile"
+            />
+            {errors.image && (
+              <p className="text-red-400 text-sm font-medium">
+                {errors.image?.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <button
