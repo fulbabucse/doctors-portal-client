@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddDoctor = () => {
   const {
@@ -8,6 +10,7 @@ const AddDoctor = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const { data: appointmentSpeciality = [] } = useQuery({
     queryKey: ["appointmentSpeciality"],
@@ -37,6 +40,24 @@ const AddDoctor = () => {
           speciality: doctorData.speciality,
           image: imageData.data.url,
         };
+
+        fetch(`http://localhost:5000/doctors`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem(
+              "doctors-portal-access-token"
+            )}`,
+          },
+          body: JSON.stringify(doctorInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged) {
+              toast.success("Successfully added a new Doctor");
+              navigate("/dashboard/manage-doctors");
+            }
+          });
       });
   };
 

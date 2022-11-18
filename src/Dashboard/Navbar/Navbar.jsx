@@ -84,6 +84,13 @@ const Navbar = () => {
                     >
                       Add Doctors
                     </Link>
+
+                    <Link
+                      to="/dashboard/manage-doctors"
+                      className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                    >
+                      Manage Doctors
+                    </Link>
                   </>
                 )}
 

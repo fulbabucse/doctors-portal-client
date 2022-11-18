@@ -11,6 +11,7 @@ module.exports = {
         secondaryColor: "#19D3AE",
         ternaryColor: "#3A4256",
         baseColor: "#FFFFFF",
+        dangerColor: "#FF385C",
       },
     },
   },

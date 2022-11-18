@@ -1,26 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useState } from "react";
-import { useContext } from "react";
 import Spinner from "../../components/Spinner/Spinner";
-import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-const MyAppointment = () => {
-  const { user } = useContext(AuthContext);
-
-  const { data: bookings = [], isLoading } = useQuery({
-    queryKey: ["bookings", user?.email],
+const ManageDoctors = () => {
+  const { data: doctors = [], isLoading } = useQuery({
+    queryKey: ["doctors"],
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/bookings?email=${user?.email}`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem(
-              "doctors-portal-access-token"
-            )}`,
-          },
-        }
-      );
+      const res = await fetch("http://localhost:5000/doctors");
       const data = await res.json();
       return data;
     },
@@ -34,7 +20,7 @@ const MyAppointment = () => {
     <div>
       <div className="my-4">
         <h2 className="text-4xl font-semibold text-gray-700 text-center">
-          My Appointments
+          All Doctors
         </h2>
       </div>
       <div className="flex flex-col">
@@ -54,49 +40,71 @@ const MyAppointment = () => {
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                     >
-                      Patient Name
+                      Doctors Name
                     </th>
                     <th
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                     >
-                      Treatment
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                    >
-                      Appointment Date
+                      Speciality
                     </th>
 
                     <th
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                     >
-                      Appointment Time
+                      Email
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm text-center font-medium text-gray-900 px-6 py-4"
+                    >
+                      Doctors Images
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {bookings?.map((booking, idx) => (
+                  {doctors?.map((doctor, idx) => (
                     <tr
-                      key={booking._id}
+                      key={doctor._id}
                       className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                     >
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {idx + 1}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {booking?.patient}
+                        {doctor?.name}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {booking?.treatment}
+                        {doctor?.speciality}
                       </td>
+
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {booking?.bookingDate}
+                        {doctor?.email}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {booking?.appointmentTime}
+                      <td className="flex justify-center text-sm text-gray-900 font-light px-6 whitespace-nowrap">
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={doctor?.image}
+                          alt={doctor?.name}
+                        />
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                        <button
+                          type="button"
+                          data-mdb-ripple="true"
+                          data-mdb-ripple-color="light"
+                          className="inline-block px-3 py-2 bg-dangerColor text-white font-medium text-lg leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -110,4 +118,4 @@ const MyAppointment = () => {
   );
 };
 
-export default MyAppointment;
+export default ManageDoctors;
