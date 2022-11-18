@@ -15,6 +15,7 @@ import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyAppointment from "../../Dashboard/MyAppointment/MyAppointment";
 import AllUsers from "../../Dashboard/AllUsers/AllUsers";
 import AdminRoute from "../AdminRoute/AdminRoute";
+import AddDoctor from "../../Dashboard/AddDoctor/AddDoctor";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-doctors",
+        element: (
+          <AdminRoute>
+            <AddDoctor></AddDoctor>
           </AdminRoute>
         ),
       },

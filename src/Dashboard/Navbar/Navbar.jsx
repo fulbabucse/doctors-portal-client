@@ -70,12 +70,21 @@ const Navbar = () => {
                 </Link>
 
                 {isAdmin && (
-                  <Link
-                    to="/dashboard/all-users"
-                    className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
-                  >
-                    All Users
-                  </Link>
+                  <>
+                    <Link
+                      to="/dashboard/all-users"
+                      className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                    >
+                      All Users
+                    </Link>
+
+                    <Link
+                      to="/dashboard/add-doctors"
+                      className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
+                    >
+                      Add Doctors
+                    </Link>
+                  </>
                 )}
 
                 <div className="flex justify-center mt-6 lg:flex lg:mt-0 lg:-mx-2">

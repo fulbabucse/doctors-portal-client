@@ -1,14 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const MyAppointment = () => {
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const { data: bookings = [] } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
+      setLoading(true);
       const res = await fetch(
         `http://localhost:5000/bookings?email=${user?.email}`,
         {
@@ -20,9 +24,14 @@ const MyAppointment = () => {
         }
       );
       const data = await res.json();
+      setLoading(false);
       return data;
     },
   });
+
+  if (loading) {
+    <Spinner></Spinner>;
+  }
 
   return (
     <div>
