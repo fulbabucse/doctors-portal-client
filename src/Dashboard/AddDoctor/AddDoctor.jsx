@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -7,6 +8,15 @@ const AddDoctor = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { data: appointmentSpeciality = [] } = useQuery({
+    queryKey: ["appointmentSpeciality"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/appointmentSpeciality`);
+      const data = await res.json();
+      return data;
+    },
+  });
 
   const handleAddDoctors = (doctorData) => {
     console.log(doctorData);
@@ -76,11 +86,9 @@ const AddDoctor = () => {
             id="countries"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryColor focus:border-primaryColor block w-full p-3 outline-none"
           >
-            <option selected>Choose an Speciality</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+            {appointmentSpeciality.map((speaciality) => (
+              <option key={speaciality._id}>{speaciality.name}</option>
+            ))}
           </select>
         </div>
 
