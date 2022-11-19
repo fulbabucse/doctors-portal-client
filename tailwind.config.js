@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors: {
         primaryColor: "#FF385C",
-        secondaryColor: "rgba(255, 56, 92, 0.8)",
+        secondaryColor: "#FF385C",
         ternaryColor: "#3A4256",
         baseColor: "#FFFFFF",
         dangerColor: "#FF385C",

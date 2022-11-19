@@ -1,7 +1,7 @@
 import React from "react";
 
 const OptionCard = ({ option, setModalData }) => {
-  const { name, slots } = option;
+  const { name, slots, price } = option;
 
   return (
     <div className="text-center py-10 px-3 shadow-lg rounded-lg">
@@ -10,6 +10,7 @@ const OptionCard = ({ option, setModalData }) => {
       <p>
         {slots.length} {slots.length > 1 ? "Spaces" : "Space"} Available
       </p>
+      <p>Price: ${price}</p>
       <div className="mt-2">
         <button
           type="button"

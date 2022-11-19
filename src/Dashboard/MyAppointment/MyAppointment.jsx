@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -80,6 +81,19 @@ const MyAppointment = () => {
                     >
                       Appointment Time
                     </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      Price
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      Payments
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,20 +102,44 @@ const MyAppointment = () => {
                       key={booking._id}
                       className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                         {idx + 1}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                         {booking?.patient}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                         {booking?.treatment}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                         {booking?.bookingDate}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
                         {booking?.appointmentTime}
+                      </td>
+
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">
+                        {booking?.price}
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                        {booking?.price && !booking?.paid && (
+                          <Link to={`/dashboard/payment/${booking?._id}`}>
+                            <button
+                              type="button"
+                              data-mdb-ripple="true"
+                              data-mdb-ripple-color="light"
+                              className="inline-block px-4 py-1 bg-gradient-to-r from-primaryColor to-secondaryColor text-white font-medium text-lg leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out"
+                            >
+                              Pay
+                            </button>
+                          </Link>
+                        )}
+
+                        {booking?.price && booking?.paid && (
+                          <h4 className="text-md font-semibold italic text-primaryColor">
+                            Paid
+                          </h4>
+                        )}
                       </td>
                     </tr>
                   ))}

@@ -25,6 +25,7 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
       appointmentTime: data.appointmentTime,
       email: user?.email,
       phoneNumber: data.phoneNumber,
+      price: modalData?.option?.price,
     };
 
     fetch(`http://localhost:5000/bookings`, {
