@@ -1,14 +1,20 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import CheckoutForm from "./CheckoutForm";
+import Spinner from "../../components/Spinner/Spinner";
 
 const stripePromise = loadStripe(process.env.REACT_APP_StripeKey);
 
 const Payments = () => {
   const bookingData = useLoaderData();
+  const navigation = useNavigation();
   const { treatment, price, appointmentTime, bookingDate } = bookingData;
+
+  if (navigation.state === "loading") {
+    return <Spinner />;
+  }
 
   return (
     <div className="mt-3">

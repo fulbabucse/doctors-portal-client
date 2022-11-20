@@ -11,12 +11,26 @@ const CheckoutForm = ({ bookingData }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { price, patient, email } = bookingData;
+  const {
+    price,
+    patient,
+    email,
+    _id,
+    treatment,
+    phoneNumber,
+    bookingDate,
+    appointmentTime,
+  } = bookingData;
 
   useEffect(() => {
     fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem(
+          "doctors-portal-access-token"
+        )}`,
+      },
       body: JSON.stringify({ price }),
     })
       .then((res) => res.json())
@@ -64,10 +78,38 @@ const CheckoutForm = ({ bookingData }) => {
       setCardError(confirmError.message);
       return;
     }
+
     if (paymentIntent.status === "succeeded") {
-      setSucceeded("Congrats! Complete your payment");
-      setTransectionId(paymentIntent.id);
-      SetLoading(false);
+      const paymentInfo = {
+        treatment,
+        patient,
+        email,
+        phoneNumber,
+        price,
+        transectionId: paymentIntent.id,
+        bookingId: _id,
+        appointmentTime,
+      };
+      console.log(paymentInfo);
+      fetch("http://localhost:5000/payments", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "doctors-portal-access-token"
+          )}`,
+        },
+        body: JSON.stringify(paymentInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            setSucceeded("Congrats! Complete your payment");
+            setTransectionId(paymentIntent.id);
+            SetLoading(false);
+          }
+        });
     }
     console.log(paymentIntent);
   };
