@@ -28,7 +28,7 @@ const BookingModal = ({ modalData, setModalData, date, refetch }) => {
       price: modalData?.option?.price,
     };
 
-    fetch(`http://localhost:5000/bookings`, {
+    fetch(`https://doctors-portal-server-navy.vercel.app/bookings`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

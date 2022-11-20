@@ -18,27 +18,33 @@ const ManageDoctors = () => {
   } = useQuery({
     queryKey: ["doctors"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/doctors", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "doctors-portal-access-token"
-          )}`,
-        },
-      });
+      const res = await fetch(
+        "https://doctors-portal-server-navy.vercel.app/doctors",
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem(
+              "doctors-portal-access-token"
+            )}`,
+          },
+        }
+      );
       const data = await res.json();
       return data;
     },
   });
 
   const handleDeleteDoctor = (doctor) => {
-    fetch(`http://localhost:5000/doctors/${doctor?._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem(
-          "doctors-portal-access-token"
-        )}`,
-      },
-    })
+    fetch(
+      `https://doctors-portal-server-navy.vercel.app/doctors/${doctor?._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(
+            "doctors-portal-access-token"
+          )}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {

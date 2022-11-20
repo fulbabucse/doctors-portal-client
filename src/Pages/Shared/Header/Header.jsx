@@ -65,10 +65,10 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  to="/reviews"
+                  to="/doctors"
                   className="transition-colors font-medium duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200"
                 >
-                  Reviews
+                  Doctors
                 </Link>
 
                 <Link

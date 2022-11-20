@@ -23,16 +23,19 @@ const CheckoutForm = ({ bookingData }) => {
   } = bookingData;
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem(
-          "doctors-portal-access-token"
-        )}`,
-      },
-      body: JSON.stringify({ price }),
-    })
+    fetch(
+      "https://doctors-portal-server-navy.vercel.app/create-payment-intent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "doctors-portal-access-token"
+          )}`,
+        },
+        body: JSON.stringify({ price }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, [price]);
@@ -90,8 +93,7 @@ const CheckoutForm = ({ bookingData }) => {
         bookingId: _id,
         appointmentTime,
       };
-      console.log(paymentInfo);
-      fetch("http://localhost:5000/payments", {
+      fetch("https://doctors-portal-server-navy.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -103,7 +105,6 @@ const CheckoutForm = ({ bookingData }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.acknowledged) {
             setSucceeded("Congrats! Complete your payment");
             setTransectionId(paymentIntent.id);
@@ -111,7 +112,6 @@ const CheckoutForm = ({ bookingData }) => {
           }
         });
     }
-    console.log(paymentIntent);
   };
 
   return (

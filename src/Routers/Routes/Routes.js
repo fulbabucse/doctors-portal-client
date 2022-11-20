@@ -4,7 +4,7 @@ import About from "../../Pages/About/About";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import Contact from "../../Pages/Shared/Contact/Contact";
 import Home from "../../Pages/Home/Home/Home";
-import Reviews from "../../Pages/Reviews/Reviews";
+import Doctors from "../../Pages/Doctors/Doctors";
 import SignUp from "../../Pages/User/SignUp/SignUp";
 import SignIn from "../../Pages/User/SignIn/SignIn";
 import Profile from "../../Pages/User/Profile/Profile";
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       { path: "about", element: <About></About> },
       { path: "appointment", element: <Appointment></Appointment> },
-      { path: "reviews", element: <Reviews></Reviews> },
+      { path: "doctors", element: <Doctors></Doctors> },
       { path: "contact", element: <Contact></Contact> },
       { path: "sign-up", element: <SignUp></SignUp> },
       { path: "sign-in", element: <SignIn></SignIn> },
@@ -82,7 +82,9 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/payment/:bookingId",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.bookingId}`),
+          fetch(
+            `https://doctors-portal-server-navy.vercel.app/bookings/${params.bookingId}`
+          ),
         element: (
           <PrivateRoute>
             <Payments></Payments>
