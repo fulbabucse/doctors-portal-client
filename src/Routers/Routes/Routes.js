@@ -18,11 +18,13 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import AddDoctor from "../../Dashboard/AddDoctor/AddDoctor";
 import ManageDoctors from "../../Dashboard/ManageDoctors/ManageDoctors";
 import Payments from "../../Dashboard/Payments/Payments";
+import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <Home></Home> },
       { path: "about", element: <About></About> },
@@ -44,6 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
+    errorElement: <ErrorPage></ErrorPage>,
     element: (
       <PrivateRoute>
         <DashboardLayout></DashboardLayout>
