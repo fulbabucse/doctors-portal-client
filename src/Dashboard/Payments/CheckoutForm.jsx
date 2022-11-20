@@ -4,7 +4,10 @@ import { useState } from "react";
 
 const CheckoutForm = ({ bookingData }) => {
   const [cardError, setCardError] = useState("");
+  const [loading, SetLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const [succeeded, setSucceeded] = useState("");
+  const [transectionId, setTransectionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -44,6 +47,8 @@ const CheckoutForm = ({ bookingData }) => {
       setCardError("");
     }
 
+    setSucceeded("");
+    SetLoading(true);
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -58,6 +63,11 @@ const CheckoutForm = ({ bookingData }) => {
     if (confirmError) {
       setCardError(confirmError.message);
       return;
+    }
+    if (paymentIntent.status === "succeeded") {
+      setSucceeded("Congrats! Complete your payment");
+      setTransectionId(paymentIntent.id);
+      SetLoading(false);
     }
     console.log(paymentIntent);
   };
@@ -84,12 +94,20 @@ const CheckoutForm = ({ bookingData }) => {
         <button
           className="inline-block px-4 py-1.5 bg-gradient-to-r from-primaryColor to-secondaryColor text-white font-medium text-lg leading-tight rounded-md shadow-md  hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition-colors duration-200 ease-in-out mt-3"
           type="submit"
-          disabled={!stripe || !clientSecret}
+          disabled={!stripe || !clientSecret || loading}
         >
           Pay
         </button>
       </form>
       <p className="mt-2 text-primaryColor">{cardError}</p>
+      {succeeded && (
+        <>
+          <p className="text-semibold text-purple-600">{succeeded}</p>
+          <p className="text-semibold text-purple-600">
+            TransectionID: {transectionId}
+          </p>
+        </>
+      )}
     </div>
   );
 };
